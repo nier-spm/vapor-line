@@ -1,5 +1,5 @@
     import XCTest
-    @testable import vapor_line
+    @testable import VaporLine
 
     final class VaporLineTests: XCTestCase {
         func testExample() {
