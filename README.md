@@ -13,7 +13,7 @@ A Vapor extension package for [Line Messaging Api](https://developers.line.biz/e
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nier-spm/vapor-line.git", from: "0.0.1")
+    .package(url: "https://github.com/nier-spm/vapor-line.git", from: "0.0.2")
 ],
 ```
 
@@ -25,7 +25,7 @@ targets: [
     .target(
         name: "App",
         dependencies: [
-            .product(name: "VaporLine", package: "VaporLine"),
+            .product(name: "VaporLine", package: "vapo-line"),
             ...
         ],
     }
