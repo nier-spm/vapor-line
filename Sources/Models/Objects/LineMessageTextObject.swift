@@ -29,13 +29,13 @@ extension LineMessageTextObject {
 extension LineMessageTextObject {
     
     public struct Mention: Codable {
-        var mentionees: [Mentionee]
+        public var mentionees: [Mentionee]
     }
     
     public struct Mentionee: Codable {
-        var index: Int
-        var length: Int
-        var userID: String
+        public var index: Int
+        public var length: Int
+        public var userID: String
         
         enum CodingKeys: String, CodingKey {
             case index
