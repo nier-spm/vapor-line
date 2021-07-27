@@ -28,11 +28,14 @@ extension LineMessageEvent: Codable {
         self.mode = try container.decode(LineWebhookEventMode.self, forKey: .mode)
         self.timestamp = try container.decode(Double.self, forKey: .timestamp)
         
-        if let user = try? container.decode(LineWebhookEventUserSource.self, forKey: .source) {
-            self.source = user
-        } else if let group = try? container.decode(LineWebhookEventGroupSource.self, forKey: .source) {
-            self.source = group
-        } else {
+        let source = try container.decode(LineWebhookEventSourcePrototype.self, forKey: .source)
+        
+        switch source.type {
+        case .user:
+            self.source = try container.decode(LineWebhookEventUserSource.self, forKey: .source)
+        case .group:
+            self.source = try container.decode(LineWebhookEventGroupSource.self, forKey: .source)
+        case .room:
             self.source = try container.decode(LineWebhookEventRoomSource.self, forKey: .source)
         }
         
@@ -42,25 +45,18 @@ extension LineMessageEvent: Codable {
         
         switch message.type {
         case .text:
-            print("text")
             self.message = try container.decode(LineMessageTextObject.self, forKey: .message)
         case .image:
-            print("image")
             self.message = try container.decode(LineMessageImageObject.self, forKey: .message)
         case .video:
-            print("videp")
             self.message = try container.decode(LineMessageVideoObject.self, forKey: .message)
         case .audio:
-            print("audio")
             self.message = try container.decode(LineMessageAudioObject.self, forKey: .message)
         case .file:
-            print("file")
             self.message = try container.decode(LineMessageFileObject.self, forKey: .message)
         case .location:
-            print("location")
             self.message = try container.decode(LineMessageLocationObject.self, forKey: .message)
         case .sticker:
-            print("sticker")
             self.message = try container.decode(LineMessageStickerObject.self, forKey: .message)
         }
     }
