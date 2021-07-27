@@ -20,11 +20,26 @@ extension LineWebhook: Codable {
         
         var unkeyedContainer = try container.nestedUnkeyedContainer(forKey: .events)
         
-        while !unkeyedContainer.isAtEnd {
+        for _ in 0..<(unkeyedContainer.count ?? 0) {
             if let message = try? unkeyedContainer.decode(LineMessageEvent.self) {
                 self.events.append(message)
             }
+            
+            print(unkeyedContainer.isAtEnd)
         }
+        
+//        while !unkeyedContainer.isAtEnd {
+//            print(unkeyedContainer.currentIndex)
+//            if let message = try? unkeyedContainer.decode(LineMessageEvent.self) {
+//                self.events.append(message)
+//            } else {
+//                let res = try unkeyedContainer.decodeNil()
+//
+//                print(res)
+//
+//                continue
+//            }
+//        }
     }
     
     public func encode(to encoder: Encoder) throws {
