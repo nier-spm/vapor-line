@@ -19,7 +19,6 @@ extension LineWebhook: Codable {
         self.destination = try container.decode(String.self, forKey: .destination)
         
         let events = try container.decode([LineWebhookEventPrototype].self, forKey: .events)
-        self.events = events
         
         var unkeyedContainer = try container.nestedUnkeyedContainer(forKey: .events)
 
@@ -64,7 +63,7 @@ extension LineWebhook: Codable {
                 let accountLink = try unkeyedContainer.decode(LineAccountLinkEvent.self)
                 self.events.append(accountLink)
             case .things:
-                let deviceLinkUnlink = try unkeyedContainer.decode(LineDeviceLinkUnlinkEvent.self)
+                let deviceLinkUnlink = try unkeyedContainer.decode(LineDeviceThingsEvent.self)
                 self.events.append(deviceLinkUnlink)
             }
         }
@@ -102,7 +101,7 @@ extension LineWebhook: Codable {
                 try unkeyedContainer.encode(beacon)
             } else if let accountLink = event as? LineAccountLinkEvent {
                 try unkeyedContainer.encode(accountLink)
-            } else if let deviceLinkUnlink = event as? LineDeviceLinkUnlinkEvent {
+            } else if let deviceLinkUnlink = event as? LineDeviceThingsEvent {
                 try unkeyedContainer.encode(deviceLinkUnlink)
             }
         }

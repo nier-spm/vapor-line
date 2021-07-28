@@ -1,6 +1,6 @@
 import Foundation
 
-public struct LineDeviceLinkUnlinkEvent: LineWebhookEvent {
+public struct LineDeviceThingsEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .things
     public var mode: LineWebhookEventMode
@@ -10,7 +10,7 @@ public struct LineDeviceLinkUnlinkEvent: LineWebhookEvent {
     public var things: LineDeviceThings
 }
 
-extension LineDeviceLinkUnlinkEvent: Codable {
+extension LineDeviceThingsEvent: Codable {
     
     enum CodingKeys: String, CodingKey {
         case type

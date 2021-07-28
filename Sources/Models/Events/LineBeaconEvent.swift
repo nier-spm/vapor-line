@@ -13,9 +13,9 @@ public struct LineBeaconEvent: LineWebhookEvent {
 extension LineBeaconEvent {
     
     public struct Beacon: Codable {
-        var hardwareID: String
-        var type: Type
-        var deviceMessage: String?
+        public var hardwareID: String
+        public var type: Type
+        public var deviceMessage: String?
         
         enum CodingKeys: String, CodingKey {
             case hardwareID = "hwid"
