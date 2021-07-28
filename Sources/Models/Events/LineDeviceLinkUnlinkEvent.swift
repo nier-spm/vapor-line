@@ -1,52 +1,24 @@
 import Foundation
 
-public protocol LineWebhookEvent {
-    var type: LineWebhookEventType { get }
-    var mode: LineWebhookEventMode { get }
-    var timestamp: Double { get }
-    var source: LineWebhookEventSource { get }
-}
-
-extension LineWebhookEvent {
+public struct LineDeviceLinkUnlinkEvent: LineWebhookEvent {
     
-    public var time: Date {
-        return Date(timeIntervalSince1970: self.timestamp / 1000)
-    }
+    public var type: LineWebhookEventType = .things
+    public var mode: LineWebhookEventMode
+    public var timestamp: Double
+    public var source: LineWebhookEventSource
+    public var replyToken: String
+    public var things: LineDeviceThings
 }
 
-public enum LineWebhookEventType: String, Codable {
-    case message
-    case unsend
-    case follow
-    case unfollow
-    case join
-    case leave
-    case memberJoin = "memberJoined"
-    case memberLeave = "memberLeft"
-    case postback
-    case videoPlayComplete
-    case beacon
-    case accountLink
-    case things
-}
-
-public enum LineWebhookEventMode: String, Codable {
-    case active
-    case standby
-}
-
-struct LineWebhookEventPrototype: LineWebhookEvent, Codable {
-    
-    var type: LineWebhookEventType
-    var mode: LineWebhookEventMode
-    var timestamp: Double
-    var source: LineWebhookEventSource
+extension LineDeviceLinkUnlinkEvent: Codable {
     
     enum CodingKeys: String, CodingKey {
         case type
         case mode
         case timestamp
         case source
+        case replyToken
+        case things
     }
     
     public init(from decoder: Decoder) throws {
@@ -66,6 +38,9 @@ struct LineWebhookEventPrototype: LineWebhookEvent, Codable {
         case .room:
             self.source = try container.decode(LineWebhookEventRoomSource.self, forKey: .source)
         }
+        
+        self.replyToken = try container.decode(String.self, forKey: .replyToken)
+        self.things = try container.decode(LineDeviceThings.self, forKey: .things)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -86,5 +61,8 @@ struct LineWebhookEventPrototype: LineWebhookEvent, Codable {
             let room: LineWebhookEventRoomSource = self.source as! LineWebhookEventRoomSource
             try container.encode(room, forKey: .source)
         }
+        
+        try container.encode(self.replyToken, forKey: .replyToken)
+        try container.encode(self.things, forKey: .things)
     }
 }
