@@ -13,8 +13,8 @@ public struct LineAccountLinkEvent: LineWebhookEvent {
 extension LineAccountLinkEvent {
     
     public struct Link: Codable {
-        var result: Result
-        var nonce: String
+        public var result: Result
+        public var nonce: String
         
         public enum Result: String, Codable {
             case ok

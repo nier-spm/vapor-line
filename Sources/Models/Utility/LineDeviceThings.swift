@@ -4,10 +4,12 @@ public struct LineDeviceThings: Codable {
     
     public var deviceID: String
     public var type: Type
+    public var result: Result?
     
     enum CodingKeys: String, CodingKey {
         case deviceID = "deviceId"
         case type
+        case result
     }
 }
 
@@ -30,7 +32,7 @@ extension LineDeviceThings {
         public var resultCode: ResultCode
         public var actionResults: [ActionResult]
         public var bluetoothNotificationPayload: String
-        public var errorReason: String
+        public var errorReason: String?
         
         enum CodingKeys: String, CodingKey {
             case scenarioID = "scenarioId"
