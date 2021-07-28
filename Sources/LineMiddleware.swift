@@ -1,6 +1,6 @@
 import Vapor
 
-public struct LineMiddleware: Middleware {
+public final class LineMiddleware: Middleware {
     
     private var line: Line
     

@@ -1,46 +1,14 @@
 import Foundation
 
-public protocol LineWebhookEvent {
-    var type: LineWebhookEventType { get }
-    var mode: LineWebhookEventMode { get }
-    var timestamp: Double { get }
-    var source: LineWebhookEventSource { get }
-}
-
-extension LineWebhookEvent {
+public struct LineLeaveEvent: LineWebhookEvent {
     
-    public var time: Date {
-        return Date(timeIntervalSince1970: self.timestamp / 1000)
-    }
+    public var type: LineWebhookEventType = .leave
+    public var mode: LineWebhookEventMode
+    public var timestamp: Double
+    public var source: LineWebhookEventSource
 }
 
-public enum LineWebhookEventType: String, Codable {
-    case message
-    case unsend
-    case follow
-    case unfollow
-    case join
-    case leave
-    case memberJoin = "memberJoined"
-    case memberLeave = "memberLeft"
-    case postback
-    case videoPlayComplete
-    case beacon
-    case accountLink
-    case things
-}
-
-public enum LineWebhookEventMode: String, Codable {
-    case active
-    case standby
-}
-
-struct LineWebhookEventPrototype: LineWebhookEvent, Codable {
-    
-    var type: LineWebhookEventType
-    var mode: LineWebhookEventMode
-    var timestamp: Double
-    var source: LineWebhookEventSource
+extension LineLeaveEvent: Codable {
     
     enum CodingKeys: String, CodingKey {
         case type
