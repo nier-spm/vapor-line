@@ -73,7 +73,7 @@ extension Webhook {
         return request.client.get(API.endpoint.url, headers: self.line.headers)
             .flatMapThrowing { res in
                 if res.status.code != 200 {
-                    let error = try? res.content.decode(LineWebhookErrorResponse.self)
+                    let error = try? res.content.decode(LineAPIErrorResponse.self)
                     
                     throw Abort(res.status, reason: error?.message)
                 }
@@ -106,7 +106,7 @@ extension Webhook {
             try req.content.encode(data)
         }.flatMapThrowing { res in
             if res.status.code != 200 {
-                let error = try? res.content.decode(LineWebhookErrorResponse.self)
+                let error = try? res.content.decode(LineAPIErrorResponse.self)
                 
                 throw Abort(res.status, reason: error?.message)
             }
@@ -154,7 +154,7 @@ extension Webhook {
             }
         }.flatMapThrowing { res in
             if res.status.code != 200 {
-                let error = try? res.content.decode(LineWebhookErrorResponse.self)
+                let error = try? res.content.decode(LineAPIErrorResponse.self)
                 
                 throw Abort(res.status, reason: error?.message)
             }
