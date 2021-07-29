@@ -30,7 +30,7 @@ public final class LineMiddleware: Middleware {
             print("[ Line ] message: \(body)")
         }
         
-        let result = self.line.webhookVerify(signature, body)
+        let result = self.line.webhook.verify(signature, body)
         
         switch result {
         case .success:
