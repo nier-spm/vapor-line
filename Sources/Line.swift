@@ -2,11 +2,11 @@ import Vapor
 
 public class Line: NSObject {
     
-    private let id: String
-    private let secret: String
-    private let accessToken: String
+    let id: String
+    let secret: String
+    let accessToken: String
     
-    private let secretKey: SymmetricKey
+    let secretKey: SymmetricKey
     
     /**
      Initializer of Line.
@@ -83,24 +83,11 @@ extension Line {
 // MARK: -
 extension Line {
     
-    // MARK: Webhook verify
-    /**
-     Verify incoming webhook message is send from line.
-     
-     - Parameters:
-        - signature: **x-line-signature** or **X-Line-Signature** in request header
-        - message: request body
-     
-     - Returns:
-        The result of Line message verify.
-     */
-    public func webhookVerify(_ signature: String, _ message: String) -> Result<Bool, LineError> {
-        let digest: HashedAuthenticationCode = HMAC<SHA256>.authenticationCode(for: message.data(using: .utf8)!, using: self.secretKey)
+    var headers: HTTPHeaders {
+        var headers = HTTPHeaders()
         
-        if signature == Data(digest).base64EncodedString() {
-            return .success(true)
-        } else {
-            return .failure(.init(.signatureVerifyFail))
-        }
+        headers.add(name: .authorization, value: "Bearer \(self.accessToken)")
+        
+        return headers
     }
 }
