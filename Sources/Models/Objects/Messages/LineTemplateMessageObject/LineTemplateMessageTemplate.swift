@@ -4,6 +4,11 @@ public protocol LineTemplateMessageTemplate {
     var type: LineTemplateMessageTemplateType { get }
 }
 
+// MARK: - LineTemplateMessageTemplatePrototype
+struct LineTemplateMessageTemplatePrototype: LineTemplateMessageTemplate, Codable {
+    var type: LineTemplateMessageTemplateType
+}
+
 // MARK: - LineTemplateMessageTemplateType
 /**
  - `buttons`: See **LineTemplateMessageButtonsTemplate**.

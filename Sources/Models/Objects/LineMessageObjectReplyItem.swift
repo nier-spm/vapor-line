@@ -35,34 +35,3 @@ extension LineMessageObjectReplyItem: Codable {
 public enum LineMessageObjectReplyItemType: String, Codable {
     case action
 }
-
-// MARK: - LineMessageObjectReplyItem.Sender
-extension LineMessageObjectReplyItem {
-    
-    public struct Sender: Codable {
-        var name: String?
-        var iconURL: String?
-        
-        enum CodingKeys: String, CodingKey {
-            case name
-            case iconURL = "iconUrl"
-        }
-    }
-}
-
-// MARK: - LineMessageObjectReplyItem.Sender Initializer
-extension LineMessageObjectReplyItem.Sender {
-    
-    public init(name: String, iconURL: String) {
-        self.name = name
-        self.iconURL = iconURL
-    }
-    
-    public init(name: String) {
-        self.name = name
-    }
-    
-    public init(iconURL: String) {
-        self.iconURL = iconURL
-    }
-}

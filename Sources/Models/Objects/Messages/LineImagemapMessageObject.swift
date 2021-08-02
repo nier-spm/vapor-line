@@ -20,7 +20,8 @@ import Foundation
  - `baseSize`: See **Size**.
  - `video`: See **Video**.
  - `actions`: Action when tapped. See **Action**.
- -  `quickReply`: See **Common Properties**.
+ - `sender`: See **LineMessageObjectSender**.
+ - `quickReply`: See **Common Properties**.
  
  # Reference
  [Imagemap message | LINE Developers][imagemap]
@@ -35,6 +36,7 @@ public struct LineImagemapMessageObject: LineMessageObject {
     public var baseSize: Size
     public var video: Video?
     public var actions: [LineImagemapMessageAction] = []
+    public var sender: LineMessageObjectSender?
     public var quickReply: LineMessageObjectQuickReply?
 }
 
@@ -119,6 +121,8 @@ extension LineImagemapMessageObject: Codable {
         case baseSize
         case video
         case actions
+        case sender
+        case quickReply
     }
     
     public init(from decoder: Decoder) throws {
@@ -139,6 +143,9 @@ extension LineImagemapMessageObject: Codable {
                 self.actions.append(message)
             }
         }
+        
+        self.sender = try container.decodeIfPresent(LineMessageObjectSender.self, forKey: .sender)
+        self.quickReply = try container.decodeIfPresent(LineMessageObjectQuickReply.self, forKey: .quickReply)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -159,5 +166,8 @@ extension LineImagemapMessageObject: Codable {
                 try unkeyedContainer.encode(message)
             }
         }
+        
+        try container.encodeIfPresent(self.sender, forKey: .sender)
+        try container.encodeIfPresent(self.quickReply, forKey: .quickReply)
     }
 }
