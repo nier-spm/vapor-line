@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- [template]: https://developers.line.biz/en/reference/messaging-api/#template-messages
+ [TemplateMessage]: https://developers.line.biz/en/reference/messaging-api/#template-messages
  [templateMessage]: https://developers.line.biz/en/docs/messaging-api/message-types/#template-messages
  
  Template messages are messages with predefined layouts which you can customize.
@@ -9,7 +9,7 @@ import Foundation
  For more information, see [Template messages][templateMessage].
  
  # Reference
- [Template messages | LINE Developers][template]
+ [Template messages | LINE Developers][TemplateMessage]
  
  - `type`: `template`
  - `altText`: Alternative text. Displayed on devices that do not support template messages.

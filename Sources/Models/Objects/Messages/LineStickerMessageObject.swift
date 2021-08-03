@@ -1,13 +1,17 @@
 import Foundation
 
 /**
- [stickers]: https://developers.line.biz/en/docs/messaging-api/sticker-list/
+ [stickerList]: https://developers.line.biz/en/docs/messaging-api/sticker-list/
+ [StickerMessage]: https://developers.line.biz/en/reference/messaging-api/#sticker-message
  
  - `type`: `sticker`
- - `packageID`: Package ID for a set of stickers. For information on package IDs, see the [List of available stickers][stickers].
- - `stickerID`: Sticker ID. For a list of sticker IDs for stickers that can be sent with the Messaging API, see the [List of available stickers][stickers].
+ - `packageID`: Package ID for a set of stickers. For information on package IDs, see the [List of available stickers][stickerList].
+ - `stickerID`: Sticker ID. For a list of sticker IDs for stickers that can be sent with the Messaging API, see the [List of available stickers][stickerList].
  - `sender`: See **LineMessageObjectSender**.
  - `quickReply`: See **Common Properties**.
+ 
+ # Reference
+ [Sticker Message | LINE Developers][StickerMessage]
  */
 public struct LineStickerMessageObject: LineMessageObject {
     

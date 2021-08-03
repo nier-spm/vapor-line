@@ -1,6 +1,8 @@
 import Foundation
 
 /**
+ [ImageMessage]: https://developers.line.biz/en/reference/messaging-api/#image-message
+ 
  - `type`: `image`
  - `originalContentURL`: Image URL (Max character limit: 1000).
     - **HTTPS** over **TLS 1.2** or later
@@ -14,6 +16,9 @@ import Foundation
     - Max file size: 1 MB
  - `sender`: See **LineMessageObjectSender**.
  - `quickReply`: See **Common Properties**.
+ 
+ # Reference
+ [Image Message | LINE Developers][ImageMessage]
  */
 public struct LineImageMessageObject: LineMessageObject {
     

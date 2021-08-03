@@ -2,6 +2,7 @@ import Foundation
 
 /**
  [emojis]: https://developers.line.biz/en/docs/messaging-api/emoji-list/
+ [TextMessage]: https://developers.line.biz/en/reference/messaging-api/#text-message
  
  - `type`: `text`
  - `text`: Message text. You can include the following emoji:
@@ -14,6 +15,9 @@ import Foundation
     - Max: 20 LINE emoji
  - `sender`: See **LineMessageObjectSender**.
  - `quickReply`: See **Common Properties**.
+ 
+ # Reference
+ [Text Message | LINE Developers][TextMessage]
  */
 public struct LineTextMessageObject: LineMessageObject {
     

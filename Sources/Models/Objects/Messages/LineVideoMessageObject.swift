@@ -2,6 +2,7 @@ import Foundation
 
 /**
  [videoViewingComplete]: https://developers.line.biz/en/reference/messaging-api/#video-viewing-complete
+ [VideoMessage]: https://developers.line.biz/en/reference/messaging-api/#video-message
  
  - `type`: `video`
  - `originalContentURL`: URL of video file (Max character limit: 1000).
@@ -20,6 +21,9 @@ import Foundation
     - Supported character types: Half-width alphanumeric characters (`a-z`, `A-Z`, `0-9`) and symbols (`-.=,+*()%$&;:@{}!?<>[]`)
  - `sender`: See **LineMessageObjectSender**.
  - `quickReply`: See **Common Properties**.
+ 
+ # Reference
+ [Video Message | LINE Developers][VideoMessage]
  */
 public struct LineVideoMessageObject: LineMessageObject {
     

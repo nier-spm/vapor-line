@@ -1,7 +1,7 @@
 import Foundation
 
 /**
- [imagemap]: https://developers.line.biz/en/reference/messaging-api/#imagemap-message
+ [ImagemapMessage]: https://developers.line.biz/en/reference/messaging-api/#imagemap-message
  [configImage]: https://developers.line.biz/en/reference/messaging-api/#base-url
  
  Imagemap messages are messages configured with an image that has multiple tappable areas.
@@ -24,7 +24,7 @@ import Foundation
  - `quickReply`: See **Common Properties**.
  
  # Reference
- [Imagemap message | LINE Developers][imagemap]
+ [Imagemap message | LINE Developers][ImagemapMessage]
  
  - Note: Images used in imagemap messages must meet the requirements. See [How to configure an image][configImage].
  */

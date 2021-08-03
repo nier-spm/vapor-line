@@ -1,6 +1,8 @@
 import Foundation
 
 /**
+ [LocationMessage]: https://developers.line.biz/en/reference/messaging-api/#location-message
+ 
  - `type`: `location`
  - `title`: Title.
     - Max character limit: 100
@@ -10,6 +12,9 @@ import Foundation
  - `longitude`: Longitude.
  - `sender`: See **LineMessageObjectSender**.
  - `quickReply`: See **Common Properties**.
+ 
+ # Reference
+ [Location Message | LINE Developers][LocationMessage]
  */
 public struct LineLocationMessageObject: LineMessageObject {
     
