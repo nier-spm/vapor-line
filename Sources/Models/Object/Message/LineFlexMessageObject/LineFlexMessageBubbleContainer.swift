@@ -32,7 +32,7 @@ public struct LineFlexMessageBubbleContainer: LineFlexMessageContainer {
     public var body: LineFlexMessageBoxComponent?
     public var footer: LineFlexMessageBoxComponent?
     public var styles: BubbleStyle?
-//    public var action: LineActionObject?
+    public var action: LineActionObject?
 }
 
 // MARK: - Initializer
@@ -149,7 +149,7 @@ extension LineFlexMessageBubbleContainer: Codable {
         case body
         case footer
         case styles
-//        case action
+        case action
     }
     
     public init(from decoder: Decoder) throws {
@@ -194,6 +194,29 @@ extension LineFlexMessageBubbleContainer: Codable {
         self.body = try container.decodeIfPresent(LineFlexMessageBoxComponent.self, forKey: .body)
         self.footer = try container.decodeIfPresent(LineFlexMessageBoxComponent.self, forKey: .footer)
         self.styles = try container.decodeIfPresent(BubbleStyle.self, forKey: .styles)
+        
+        let action = try container.decodeIfPresent(LineActionObjectPrototype.self, forKey: .action)
+        
+        switch action?.type {
+        case .postback:
+            self.action = try container.decode(LinePostbackActionObject.self, forKey: .action)
+        case .message:
+            self.action = try container.decode(LineMessageActionObject.self, forKey: .action)
+        case .uri:
+            self.action = try container.decode(LineURIActionObject.self, forKey: .action)
+        case .datetimePicker:
+            self.action = try container.decode(LineDateTimePickerActionObject.self, forKey: .action)
+        case .camera:
+            self.action = try container.decode(LineCameraActionObject.self, forKey: .action)
+        case .cameraRoll:
+            self.action = try container.decode(LineCameraRollActionObject.self, forKey: .action)
+        case .location:
+            self.action = try container.decode(LineLocationActionObject.self, forKey: .action)
+        case .richmenuSwitch:
+            self.action = try container.decode(LineRichmenuSwitchActionObject.self, forKey: .action)
+        case .none:
+            break
+        }
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -236,5 +259,34 @@ extension LineFlexMessageBubbleContainer: Codable {
         try container.encodeIfPresent(self.body, forKey: .body)
         try container.encodeIfPresent(self.footer, forKey: .footer)
         try container.encodeIfPresent(self.styles, forKey: .styles)
+        
+        switch self.action?.type {
+        case .postback:
+            let postback = self.action as! LinePostbackActionObject
+            try container.encode(postback, forKey: .action)
+        case .message:
+            let message = self.action as! LineMessageActionObject
+            try container.encode(message, forKey: .action)
+        case .uri:
+            let uri = self.action as! LineURIActionObject
+            try container.encode(uri, forKey: .action)
+        case .datetimePicker:
+            let datetimePicker = self.action as! LineDateTimePickerActionObject
+            try container.encode(datetimePicker, forKey: .action)
+        case .camera:
+            let camera = self.action as! LineCameraActionObject
+            try container.encode(camera, forKey: .action)
+        case .cameraRoll:
+            let cameraRoll = self.action as! LineCameraRollActionObject
+            try container.encode(cameraRoll, forKey: .action)
+        case .location:
+            let location = self.action as! LineLocationActionObject
+            try container.encode(location, forKey: .action)
+        case .richmenuSwitch:
+            let richmenuSwitch = self.action as! LineRichmenuSwitchActionObject
+            try container.encode(richmenuSwitch, forKey: .action)
+        case .none:
+            break
+        }
     }
 }

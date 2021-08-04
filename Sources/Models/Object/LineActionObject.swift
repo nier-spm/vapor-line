@@ -28,7 +28,7 @@ public enum LineActionObjectType: String, Codable {
 }
 
 // MARK: - LineActionObjectPrototype
-struct LineActionObjectPrototype: LineActionObject {
+struct LineActionObjectPrototype: LineActionObject, Codable {
     
     var type: LineActionObjectType
 }

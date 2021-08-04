@@ -57,9 +57,126 @@ public struct LineFlexMessageImageComponent: LineFlexMessageComponent {
     public var aspectRatio: String?
     public var aspectMode: LineFlexMessageComponentAspectMode?
     public var backgroundColor: String?
-//    public var action: LineActionObject?
+    public var action: LineActionObject?
     public var animated: Bool?
 }
 
 // MARK: - Codable
-extension LineFlexMessageImageComponent: Codable {}
+extension LineFlexMessageImageComponent: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case type
+        case url
+        case flex
+        case margin
+        case position
+        case offsetTop
+        case offsetBottom
+        case offsetStart
+        case offsetEnd
+        case align
+        case gravity
+        case size
+        case aspectRatio
+        case aspectMode
+        case backgroundColor
+        case action
+        case animated
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.type = try container.decode(LineFlexMessageComponentType.self, forKey: .type)
+        self.url = try container.decode(String.self, forKey: .url)
+        self.flex = try container.decodeIfPresent(Double.self, forKey: .flex)
+        self.margin = try container.decodeIfPresent(String.self, forKey: .margin)
+        self.position = try container.decodeIfPresent(LineFlexMessageComponentPosition.self, forKey: .position)
+        self.offsetTop = try container.decodeIfPresent(String.self, forKey: .offsetTop)
+        self.offsetBottom = try container.decodeIfPresent(String.self, forKey: .offsetBottom)
+        self.offsetStart = try container.decodeIfPresent(String.self, forKey: .offsetStart)
+        self.offsetEnd = try container.decodeIfPresent(String.self, forKey: .offsetEnd)
+        self.align = try container.decodeIfPresent(LineFlexMessageComponentHorizontalAlignment.self, forKey: .align)
+        self.gravity = try container.decodeIfPresent(LineFlexMessageComponentVerticalAlignment.self, forKey: .gravity)
+        self.size = try container.decodeIfPresent(String.self, forKey: .size)
+        self.aspectRatio = try container.decodeIfPresent(String.self, forKey: .aspectRatio)
+        self.aspectMode = try container.decodeIfPresent(LineFlexMessageComponentAspectMode.self, forKey: .aspectMode)
+        self.backgroundColor = try container.decodeIfPresent(String.self, forKey: .backgroundColor)
+        
+        let action = try container.decodeIfPresent(LineActionObjectPrototype.self, forKey: .action)
+        
+        switch action?.type {
+        case .postback:
+            self.action = try container.decode(LinePostbackActionObject.self, forKey: .action)
+        case .message:
+            self.action = try container.decode(LineMessageActionObject.self, forKey: .action)
+        case .uri:
+            self.action = try container.decode(LineURIActionObject.self, forKey: .action)
+        case .datetimePicker:
+            self.action = try container.decode(LineDateTimePickerActionObject.self, forKey: .action)
+        case .camera:
+            self.action = try container.decode(LineCameraActionObject.self, forKey: .action)
+        case .cameraRoll:
+            self.action = try container.decode(LineCameraRollActionObject.self, forKey: .action)
+        case .location:
+            self.action = try container.decode(LineLocationActionObject.self, forKey: .action)
+        case .richmenuSwitch:
+            self.action = try container.decode(LineRichmenuSwitchActionObject.self, forKey: .action)
+        case .none:
+            break
+        }
+        
+        self.animated = try container.decodeIfPresent(Bool.self, forKey: .animated)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.type, forKey: .type)
+        try container.encode(self.url, forKey: .url)
+        try container.encodeIfPresent(self.flex, forKey: .flex)
+        try container.encodeIfPresent(self.margin, forKey: .margin)
+        try container.encodeIfPresent(self.position, forKey: .position)
+        try container.encodeIfPresent(self.offsetTop, forKey: .offsetTop)
+        try container.encodeIfPresent(self.offsetBottom, forKey: .offsetBottom)
+        try container.encodeIfPresent(self.offsetStart, forKey: .offsetStart)
+        try container.encodeIfPresent(self.offsetEnd, forKey: .offsetEnd)
+        try container.encodeIfPresent(self.align, forKey: .align)
+        try container.encodeIfPresent(self.gravity, forKey: .gravity)
+        try container.encodeIfPresent(self.size, forKey: .size)
+        try container.encodeIfPresent(self.aspectRatio, forKey: .aspectRatio)
+        try container.encodeIfPresent(self.aspectMode, forKey: .aspectMode)
+        try container.encodeIfPresent(self.backgroundColor, forKey: .backgroundColor)
+        
+        switch self.action?.type {
+        case .postback:
+            let postback = self.action as! LinePostbackActionObject
+            try container.encode(postback, forKey: .action)
+        case .message:
+            let message = self.action as! LineMessageActionObject
+            try container.encode(message, forKey: .action)
+        case .uri:
+            let uri = self.action as! LineURIActionObject
+            try container.encode(uri, forKey: .action)
+        case .datetimePicker:
+            let datetimePicker = self.action as! LineDateTimePickerActionObject
+            try container.encode(datetimePicker, forKey: .action)
+        case .camera:
+            let camera = self.action as! LineCameraActionObject
+            try container.encode(camera, forKey: .action)
+        case .cameraRoll:
+            let cameraRoll = self.action as! LineCameraRollActionObject
+            try container.encode(cameraRoll, forKey: .action)
+        case .location:
+            let location = self.action as! LineLocationActionObject
+            try container.encode(location, forKey: .action)
+        case .richmenuSwitch:
+            let richmenuSwitch = self.action as! LineRichmenuSwitchActionObject
+            try container.encode(richmenuSwitch, forKey: .action)
+        case .none:
+            break
+        }
+        
+        try container.encodeIfPresent(self.animated, forKey: .animated)
+    }
+}

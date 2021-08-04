@@ -28,7 +28,7 @@ import Foundation
 public struct LineFlexMessageButtonComponent: LineFlexMessageComponent {
     
     public var type: LineFlexMessageComponentType = .button
-//    public var action: LineActionObject
+    public var action: LineActionObject
     public var flex: Double?
     public var margin: String?
     public var position: LineFlexMessageComponentPosition?
@@ -40,7 +40,7 @@ public struct LineFlexMessageButtonComponent: LineFlexMessageComponent {
     public var style: Style?
     public var color: String?
     public var gravity: LineFlexMessageComponentVerticalAlignment?
-    public var adjustMode: AdjustMode?
+    public var adjustMode: LineFlexMessageComponentAdjustMode?
 }
 
 // MARK: - Height
@@ -71,19 +71,109 @@ extension LineFlexMessageButtonComponent {
     }
 }
 
-// MARK: - shrink-to-fit
-extension LineFlexMessageButtonComponent {
+// MARK: - Codable
+extension LineFlexMessageButtonComponent: Codable {
     
-    /**
-     [AdjustsFontsizeToFit]: https://developers.line.biz/en/docs/messaging-api/flex-message-layout/#adjusts-fontsize-to-fit
-     
-     - `shrinkToFit`: Automatically shrink the font size to fit the width of the component. This property takes a "best-effort" approach that may work differently—or not at all!—on some platforms. For more information, see [Automatically shrink fonts to fit][AdjustsFontsizeToFit] in the Messaging API documentation.
-        - LINE 10.13.0 or later for iOS and Android
-     */
-    public enum AdjustMode: String, Codable {
-        case shrinkToFit = "shrink-to-fit"
+    enum CodingKeys: String, CodingKey {
+        case  type
+        case  action
+        case  flex
+        case  margin
+        case  position
+        case  offsetTop
+        case  offsetBottom
+        case  offsetStart
+        case  offsetEnd
+        case  height
+        case  style
+        case  color
+        case  gravity
+        case  adjustMode
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.type = try container.decode(LineFlexMessageComponentType.self, forKey: .type)
+        
+        let action = try container.decode(LineActionObjectPrototype.self, forKey: .action)
+        
+        switch action.type {
+        case .postback:
+            self.action = try container.decode(LinePostbackActionObject.self, forKey: .action)
+        case .message:
+            self.action = try container.decode(LineMessageActionObject.self, forKey: .action)
+        case .uri:
+            self.action = try container.decode(LineURIActionObject.self, forKey: .action)
+        case .datetimePicker:
+            self.action = try container.decode(LineDateTimePickerActionObject.self, forKey: .action)
+        case .camera:
+            self.action = try container.decode(LineCameraActionObject.self, forKey: .action)
+        case .cameraRoll:
+            self.action = try container.decode(LineCameraRollActionObject.self, forKey: .action)
+        case .location:
+            self.action = try container.decode(LineLocationActionObject.self, forKey: .action)
+        case .richmenuSwitch:
+            self.action = try container.decode(LineRichmenuSwitchActionObject.self, forKey: .action)
+        }
+        
+        self.flex = try container.decodeIfPresent(Double.self, forKey: .flex)
+        self.margin = try container.decodeIfPresent(String.self, forKey: .margin)
+        self.position = try container.decodeIfPresent(LineFlexMessageComponentPosition.self, forKey: .position)
+        self.offsetTop = try container.decodeIfPresent(String.self, forKey: .offsetTop)
+        self.offsetBottom = try container.decodeIfPresent(String.self, forKey: .offsetBottom)
+        self.offsetStart = try container.decodeIfPresent(String.self, forKey: .offsetStart)
+        self.offsetEnd = try container.decodeIfPresent(String.self, forKey: .offsetEnd)
+        self.height = try container.decodeIfPresent(Height.self, forKey: .height)
+        self.style = try container.decodeIfPresent(Style.self, forKey: .style)
+        self.color = try container.decodeIfPresent(String.self, forKey: .color)
+        self.gravity = try container.decodeIfPresent(LineFlexMessageComponentVerticalAlignment.self, forKey: .gravity)
+        self.adjustMode = try container.decodeIfPresent(LineFlexMessageComponentAdjustMode.self, forKey: .adjustMode)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.type, forKey: .type)
+        
+        switch self.action.type {
+        case .postback:
+            let postback = self.action as! LinePostbackActionObject
+            try container.encode(postback, forKey: .action)
+        case .message:
+            let message = self.action as! LineMessageActionObject
+            try container.encode(message, forKey: .action)
+        case .uri:
+            let uri = self.action as! LineURIActionObject
+            try container.encode(uri, forKey: .action)
+        case .datetimePicker:
+            let datetimePicker = self.action as! LineDateTimePickerActionObject
+            try container.encode(datetimePicker, forKey: .action)
+        case .camera:
+            let camera = self.action as! LineCameraActionObject
+            try container.encode(camera, forKey: .action)
+        case .cameraRoll:
+            let cameraRoll = self.action as! LineCameraRollActionObject
+            try container.encode(cameraRoll, forKey: .action)
+        case .location:
+            let location = self.action as! LineLocationActionObject
+            try container.encode(location, forKey: .action)
+        case .richmenuSwitch:
+            let richmenuSwitch = self.action as! LineRichmenuSwitchActionObject
+            try container.encode(richmenuSwitch, forKey: .action)
+        }
+        
+        try container.encodeIfPresent(self.flex, forKey: .flex)
+        try container.encodeIfPresent(self.margin, forKey: .margin)
+        try container.encodeIfPresent(self.position, forKey: .position)
+        try container.encodeIfPresent(self.offsetTop, forKey: .offsetTop)
+        try container.encodeIfPresent(self.offsetBottom, forKey: .offsetBottom)
+        try container.encodeIfPresent(self.offsetStart, forKey: .offsetStart)
+        try container.encodeIfPresent(self.offsetEnd, forKey: .offsetEnd)
+        try container.encodeIfPresent(self.height, forKey: .height)
+        try container.encodeIfPresent(self.style, forKey: .style)
+        try container.encodeIfPresent(self.color, forKey: .color)
+        try container.encodeIfPresent(self.gravity, forKey: .gravity)
+        try container.encodeIfPresent(self.adjustMode, forKey: .adjustMode)
     }
 }
-
-// MARK: - Codable
-extension LineFlexMessageButtonComponent: Codable {}

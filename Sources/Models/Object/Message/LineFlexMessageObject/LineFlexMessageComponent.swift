@@ -131,3 +131,14 @@ public enum LineFlexMessageComponentDecoration: String, Codable {
     case underline
     case lineThrough = "line-through"
 }
+
+// MARK: - LineFlexMessageComponentAdjustMode
+/**
+ [AdjustsFontsizeToFit]: https://developers.line.biz/en/docs/messaging-api/flex-message-layout/#adjusts-fontsize-to-fit
+ 
+ - `shrinkToFit`: Automatically shrink the font size to fit the width of the component. This property takes a "best-effort" approach that may work differently—or not at all!—on some platforms. For more information, see [Automatically shrink fonts to fit][AdjustsFontsizeToFit] in the Messaging API documentation.
+    - LINE 10.13.0 or later for iOS and Android
+ */
+public enum LineFlexMessageComponentAdjustMode: String, Codable {
+    case shrinkToFit = "shrink-to-fit"
+}

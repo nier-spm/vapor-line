@@ -72,7 +72,7 @@ public struct LineFlexMessageBoxComponent: LineFlexMessageComponent {
     public var offsetBottom: String?
     public var offsetStart: String?
     public var offsetEnd: String?
-//    public var action: LineActionObject?
+    public var action: LineActionObject?
     public var justifyContent: String?
     public var alignItems: String?
     public var background: Background?
@@ -164,7 +164,7 @@ extension LineFlexMessageBoxComponent: Codable {
         case offsetBottom
         case offsetStart
         case offsetEnd
-//        case action
+        case action
         case justifyContent
         case alignItems
         case background
@@ -229,7 +229,28 @@ extension LineFlexMessageBoxComponent: Codable {
         self.offsetStart = try container.decodeIfPresent(String.self, forKey: .offsetStart)
         self.offsetEnd = try container.decodeIfPresent(String.self, forKey: .offsetEnd)
         
-//        self.action
+        let action = try container.decodeIfPresent(LineActionObjectPrototype.self, forKey: .action)
+        
+        switch action?.type {
+        case .postback:
+            self.action = try container.decode(LinePostbackActionObject.self, forKey: .action)
+        case .message:
+            self.action = try container.decode(LineMessageActionObject.self, forKey: .action)
+        case .uri:
+            self.action = try container.decode(LineURIActionObject.self, forKey: .action)
+        case .datetimePicker:
+            self.action = try container.decode(LineDateTimePickerActionObject.self, forKey: .action)
+        case .camera:
+            self.action = try container.decode(LineCameraActionObject.self, forKey: .action)
+        case .cameraRoll:
+            self.action = try container.decode(LineCameraRollActionObject.self, forKey: .action)
+        case .location:
+            self.action = try container.decode(LineLocationActionObject.self, forKey: .action)
+        case .richmenuSwitch:
+            self.action = try container.decode(LineRichmenuSwitchActionObject.self, forKey: .action)
+        case .none:
+            break
+        }
         
         self.justifyContent = try container.decodeIfPresent(String.self, forKey: .justifyContent)
         self.alignItems = try container.decodeIfPresent(String.self, forKey: .alignItems)
@@ -294,7 +315,34 @@ extension LineFlexMessageBoxComponent: Codable {
         try container.encodeIfPresent(self.offsetStart, forKey: .offsetStart)
         try container.encodeIfPresent(self.offsetEnd, forKey: .offsetEnd)
         
-//        self.action
+        switch self.action?.type {
+        case .postback:
+            let postback = self.action as! LinePostbackActionObject
+            try container.encode(postback, forKey: .action)
+        case .message:
+            let message = self.action as! LineMessageActionObject
+            try container.encode(message, forKey: .action)
+        case .uri:
+            let uri = self.action as! LineURIActionObject
+            try container.encode(uri, forKey: .action)
+        case .datetimePicker:
+            let datetimePicker = self.action as! LineDateTimePickerActionObject
+            try container.encode(datetimePicker, forKey: .action)
+        case .camera:
+            let camera = self.action as! LineCameraActionObject
+            try container.encode(camera, forKey: .action)
+        case .cameraRoll:
+            let cameraRoll = self.action as! LineCameraRollActionObject
+            try container.encode(cameraRoll, forKey: .action)
+        case .location:
+            let location = self.action as! LineLocationActionObject
+            try container.encode(location, forKey: .action)
+        case .richmenuSwitch:
+            let richmenuSwitch = self.action as! LineRichmenuSwitchActionObject
+            try container.encode(richmenuSwitch, forKey: .action)
+        case .none:
+            break
+        }
         
         try container.encodeIfPresent(self.justifyContent, forKey: .justifyContent)
         try container.encodeIfPresent(self.alignItems, forKey: .alignItems)
