@@ -1,5 +1,12 @@
 import Foundation
 
+/**
+ Event object for when the user unsends a message in a group or room.
+ 
+ - `type`: `unsend`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `unsend`: See **Unsend**.
+ */
 public struct LineUnsendEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .unsend
@@ -9,8 +16,12 @@ public struct LineUnsendEvent: LineWebhookEvent {
     public var unsend: Unsend
 }
 
+// MARK: - Unsend
 extension LineUnsendEvent {
     
+    /**
+     - `messageID`: The message ID of the unsent message.
+     */
     public struct Unsend: Codable {
         public var messageID: String
         
@@ -20,6 +31,7 @@ extension LineUnsendEvent {
     }
 }
 
+// MARK: - Codable
 extension LineUnsendEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

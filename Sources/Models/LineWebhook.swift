@@ -1,11 +1,25 @@
 import Foundation
 
+/**
+ [Webhooks]: https://developers.line.biz/en/reference/messaging-api/#webhooks
+ 
+ When an event occurs, such as when a user adds your LINE Official Account as a friend or sends a message, the LINE Platform sends an HTTPS POST request to the webhook URL (bot server).
+ 
+ The request body contains a JSON object with the user ID of a bot that should receive webhook events and an array of webhook event objects.
+ 
+ # Reference
+[Webhooks | LINE Developers][Webhooks]
+ 
+ - `destination`: User ID of a bot that should receive webhook events. The user ID value is a string that matches the regular expression, `U[0-9a-f]{32}`
+ - `events`: List of webhook events. An empty list may be sent from the LINE Platform to confirm communication..
+ */
 public struct LineWebhook {
     
     public var destination: String
     public var events: [LineWebhookEvent] = []
 }
 
+// MARK: - Codable
 extension LineWebhook: Codable {
     
     enum CodingKeys: String, CodingKey {

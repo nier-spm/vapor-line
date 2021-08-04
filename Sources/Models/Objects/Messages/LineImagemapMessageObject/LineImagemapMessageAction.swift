@@ -1,6 +1,6 @@
 import Foundation
 
-// MARK: - [Protocol] LineImagemapMessageAction
+// MARK: - [ Protocol ] LineImagemapMessageAction
 /**
  Object which specifies the actions and tappable areas of an imagemap.
  

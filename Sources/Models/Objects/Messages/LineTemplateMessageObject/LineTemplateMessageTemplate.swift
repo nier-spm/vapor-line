@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - [ Protocol ] LineTemplateMessageTemplate
 public protocol LineTemplateMessageTemplate {
     var type: LineTemplateMessageTemplateType { get }
 }

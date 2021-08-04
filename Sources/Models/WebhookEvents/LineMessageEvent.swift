@@ -1,5 +1,17 @@
 import Foundation
 
+/**
+ Webhook event object which contains the sent message.
+ 
+ The message property contains a message object which corresponds with the message type.
+ 
+ You can reply to message events.
+ 
+ - `type`: `message`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `replyToken`: Token for replying to this event.
+ - `message`: Object containing the contents of the message. See **LineMessageEventObject**.
+ */
 public struct LineMessageEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .message
@@ -10,6 +22,7 @@ public struct LineMessageEvent: LineWebhookEvent {
     public var message: LineMessageEventObject
 }
 
+// MARK: - Codable
 extension LineMessageEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

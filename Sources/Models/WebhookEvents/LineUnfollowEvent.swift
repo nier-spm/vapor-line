@@ -1,5 +1,11 @@
 import Foundation
 
+/**
+ Event object for when your LINE Official Account is blocked.
+ 
+ - `type`: `unfollow`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ */
 public struct LineUnfollowEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .unfollow
@@ -8,6 +14,7 @@ public struct LineUnfollowEvent: LineWebhookEvent {
     public var source: LineWebhookEventSource
 }
 
+// MARK: - Codable
 extension LineUnfollowEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

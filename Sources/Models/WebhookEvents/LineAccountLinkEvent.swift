@@ -1,5 +1,15 @@
 import Foundation
 
+/**
+ Event object for when a user has linked their LINE account with a provider's service account.
+ 
+ You can reply to account link events.
+ 
+ - `type`: `accountLink
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `replyToken`: Token for replying to this event.
+ - `link`: `link` object. This will include whether the account link was successful or not and a nonce (number used once) generated from the user ID on the provider's service. See **Link**.
+ */
 public struct LineAccountLinkEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .accountLink
@@ -10,8 +20,15 @@ public struct LineAccountLinkEvent: LineWebhookEvent {
     public var link: Link
 }
 
+// MARK: - Link
 extension LineAccountLinkEvent {
     
+    /**
+     - `result`: One of the following values to indicate whether the link was successful or not.
+        - `ok`: Indicates the link was successful.
+        - `failed`: Indicates the link failed for any reason, such as due to a user impersonation.
+     - `nonce`: [Specified nonce when verifying the user ID](https://developers.line.biz/en/docs/messaging-api/linking-accounts/#step-four-verifying-user-id).
+     */
     public struct Link: Codable {
         public var result: Result
         public var nonce: String
@@ -23,6 +40,7 @@ extension LineAccountLinkEvent {
     }
 }
 
+// MARK: - Codable
 extension LineAccountLinkEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

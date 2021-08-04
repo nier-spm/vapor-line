@@ -1,5 +1,12 @@
 import Foundation
 
+/**
+ Event object for when a user leaves a group or room that the LINE Official Account is in.
+ 
+ - `type`: `memberLeave`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `left`: See **LineMemberJoinLeaveContent**.
+ */
 public struct LineMemberLeaveEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .memberLeave
@@ -9,6 +16,7 @@ public struct LineMemberLeaveEvent: LineWebhookEvent {
     public var left: LineMemberJoinLeaveContent
 }
 
+// MARK: - Codable
 extension LineMemberLeaveEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

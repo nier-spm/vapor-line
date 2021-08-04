@@ -1,5 +1,13 @@
 import Foundation
 
+/**
+ Event object for when a user joins a group or room that the LINE Official Account is in.
+ 
+ - `type`: `memberJoin`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `joined`: See **LineMemberJoinLeaveContent**.
+ - `replyToken`: Token for replying to this event.
+ */
 public struct LineMemberJoinEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .memberJoin
@@ -10,6 +18,7 @@ public struct LineMemberJoinEvent: LineWebhookEvent {
     public var replyToken: String
 }
 
+// MARK: - Codable
 extension LineMemberJoinEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

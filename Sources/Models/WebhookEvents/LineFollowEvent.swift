@@ -1,5 +1,14 @@
 import Foundation
 
+/**
+ Event object for when your LINE Official Account is added as a friend (or unblocked).
+ 
+ You can reply to follow events.
+ 
+ - `type`: `follow`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `replyToken`: Token for replying to this event.
+ */
 public struct LineFollowEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .follow
@@ -9,6 +18,7 @@ public struct LineFollowEvent: LineWebhookEvent {
     public var replyToken: String
 }
 
+// MARK: - Codable
 extension LineFollowEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

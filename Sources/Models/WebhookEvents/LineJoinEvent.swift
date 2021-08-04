@@ -1,5 +1,21 @@
 import Foundation
 
+/**
+ Event object for when your LINE Official Account joins a group or room.
+ 
+ You can reply to join events.
+ 
+ A join event is triggered at different times for groups and rooms.
+ 
+ **For groups**: A join event is sent when a user invites your LINE Official Account.
+ 
+ **For rooms**: A join event is sent when the first event (for example when a user sends a message or is added to the room) occurs after your LINE Official Account is added.
+ 
+ 
+ - `type`: `join`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `replyToken`: Token for replying to this event.
+ */
 public struct LineJoinEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .join
@@ -9,6 +25,7 @@ public struct LineJoinEvent: LineWebhookEvent {
     public var replyToken: String
 }
 
+// MARK: - Codable
 extension LineJoinEvent: Codable {
     
     enum CodingKeys: String, CodingKey {

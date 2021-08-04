@@ -1,5 +1,11 @@
 import Foundation
 
+/**
+ - `type`: `videoPlayComplete`
+ - `mode`, `timestamp`, `source`: See **LineWebhookEvent**.
+ - `replyToken`: Token for replying to this event.
+ - `videoPlayComplete`: See **VideoPlayComplete**.
+ */
 public struct LineVideoViewingCompleteEvent: LineWebhookEvent {
     
     public var type: LineWebhookEventType = .videoPlayComplete
@@ -10,8 +16,12 @@ public struct LineVideoViewingCompleteEvent: LineWebhookEvent {
     public var videoPlayComplete: VideoPlayComplete
 }
 
+// MARK: - VideoPlayComplete
 extension LineVideoViewingCompleteEvent {
     
+    /**
+     - `trackingID`: ID used to identify a video. Returns the same value as the `trackingID` assigned to the video message.
+     */
     public struct VideoPlayComplete: Codable {
         public var trackingID: String
         
@@ -21,6 +31,7 @@ extension LineVideoViewingCompleteEvent {
     }
 }
 
+// MARK: - Codable
 extension LineVideoViewingCompleteEvent: Codable {
     
     enum CodingKeys: String, CodingKey {
