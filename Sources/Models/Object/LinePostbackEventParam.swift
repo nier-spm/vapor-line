@@ -29,9 +29,9 @@ public protocol LinePostbackEventParam {}
  */
 public struct LinePostbackEventDateTimeParam: LinePostbackEventParam {
     
-    var date: String?
-    var time: String?
-    var datetime: String?
+    public var date: String?
+    public var time: String?
+    public var datetime: String?
 }
 
 // MARK: - LinePostbackEventDateTimeParam.Codable
@@ -46,8 +46,8 @@ extension LinePostbackEventDateTimeParam: Codable {}
  */
 public struct LinePostbackEventRichMenuParam: LinePostbackEventParam {
     
-    var newRichMenuAliasID: String
-    var status: Status
+    public var newRichMenuAliasID: String
+    public var status: Status
 }
 
 // MARK: - Status

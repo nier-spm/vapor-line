@@ -18,7 +18,7 @@ import Foundation
 public protocol LineImagemapMessageAction {
     var type: LineImagemapMessageActionType { get }
     var label: String? { get set }
-    var area: LineImagemapMessageObjectArea { get set }
+    var area: LineAreaObject { get set }
 }
 
 // MARK: - LineImagemapMessageActionType

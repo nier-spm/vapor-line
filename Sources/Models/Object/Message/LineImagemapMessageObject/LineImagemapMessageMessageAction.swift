@@ -12,7 +12,7 @@ public struct LineImagemapMessageMessageAction: LineImagemapMessageAction {
     public var type: LineImagemapMessageActionType = .message
     public var label: String?
     public var text: String
-    public var area: LineImagemapMessageObjectArea
+    public var area: LineAreaObject
 }
 
 extension LineImagemapMessageMessageAction: Codable {}

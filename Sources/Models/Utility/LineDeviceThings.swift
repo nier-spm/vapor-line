@@ -5,17 +5,11 @@ import Foundation
  - `type`: `link`, `unlink` or `scenarioResult`.
  - `result`: See **Result**.
  */
-public struct LineDeviceThings: Codable {
+public struct LineDeviceThings {
     
     public var deviceID: String
     public var type: Type
     public var result: Result?
-    
-    enum CodingKeys: String, CodingKey {
-        case deviceID = "deviceId"
-        case type
-        case result
-    }
 }
 
 extension LineDeviceThings {
@@ -24,6 +18,16 @@ extension LineDeviceThings {
         case link
         case unlink
         case scenarioResult
+    }
+}
+
+// MARK: - Codable
+extension LineDeviceThings: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case deviceID = "deviceId"
+        case type
+        case result
     }
 }
 

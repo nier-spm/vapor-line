@@ -1,52 +1,27 @@
 import Foundation
 
 /**
- Template with multiple images which can be cycled like a carousel.
- 
- The images are shown in order when scrolling horizontally.
- 
- - `type`: `imageCarousel`
- - `columns`: Array of columns.
-    - Max columns: 10
+ - `bounds`: Object describing the boundaries of the area in pixels. See **LineAreaObject**.
+ - `action`: Action performed when the area is tapped. See **LineActionObject**.
  */
-public struct LineTemplateMessageImageCarouselTemplate: LineTemplateMessageTemplate {
+public struct LineRichmenuAreaObject {
     
-    public var type: LineTemplateMessageTemplateType = .imageCarousel
-    public var columns: [Column]
+    public var bounds: LineAreaObject
+    public var action: LineActionObject
 }
 
-// MARK: - LineTemplateMessageImageCarouselTemplate
-extension LineTemplateMessageImageCarouselTemplate {
-    
-    /**
-     Column object for image carousel.
-     
-     - `imageURL`: Image URL (Max character limit: 1,000).
-        - **HTTPS** over **TLS 1.2** or later
-        - JPEG or PNG
-        - Aspect ratio: 1:1
-        - Max width: 1024px
-        - Max file size: 10 MB
-     - `action`: Action when image is tapped.
-     */
-    public struct Column {
-        public var imageURL: String
-        public var action: LineActionObject
-    }
-}
-
-// MARK: - LineTemplateMessageImageCarouselTemplate.Column.Codable
-extension LineTemplateMessageImageCarouselTemplate.Column: Codable {
+// MARK: - Codable
+extension LineRichmenuAreaObject: Codable {
     
     enum CodingKeys: String, CodingKey {
-        case imageURL = "imageUrl"
+        case bounds
         case action
     }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.imageURL = try container.decode(String.self, forKey: .imageURL)
+        self.bounds = try container.decode(LineAreaObject.self, forKey: .bounds)
         
         let action = try container.decode(LineActionObjectPrototype.self, forKey: .action)
         
@@ -73,7 +48,7 @@ extension LineTemplateMessageImageCarouselTemplate.Column: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(self.imageURL, forKey: .imageURL)
+        try container.encode(self.bounds, forKey: .bounds)
         
         switch self.action.type {
         case .postback:
@@ -103,6 +78,3 @@ extension LineTemplateMessageImageCarouselTemplate.Column: Codable {
         }
     }
 }
-
-// MARK: - LineTemplateMessageImageCarouselTemplate.Codable
-extension LineTemplateMessageImageCarouselTemplate: Codable {}

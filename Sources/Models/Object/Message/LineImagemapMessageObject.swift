@@ -17,7 +17,9 @@ import Foundation
     - For more information about supported images in imagemap messages, see [How to configure an image][configImage].
  - `altText`: Alternative text.
     - Max character limit: 400
- - `baseSize`: See **Size**.
+ - `baseSize`: Set these properties based on the `baseSize.width` property and the `baseSize.height` property. See **LineSizeObject**.
+    - `width`: Width of base image in pixels. Set to **1040**.
+    - `height`: Height of base image. Set to the height that corresponds to a width of **1040** pixels.
  - `video`: See **Video**.
  - `actions`: Action when tapped. See **Action**.
  - `sender`: See **LineMessageObjectSender**.
@@ -33,25 +35,11 @@ public struct LineImagemapMessageObject: LineMessageObject {
     public var type: LineMessageObjectType = .imagemap
     public var baseURL: String
     public var altText: String
-    public var baseSize: Size
+    public var baseSize: LineSizeObject
     public var video: Video?
     public var actions: [LineImagemapMessageAction] = []
     public var sender: LineMessageObjectSender?
     public var quickReply: LineMessageObjectQuickReply?
-}
-
-// MARK: - Size
-extension LineImagemapMessageObject {
-    
-    /**
-     - `width`: Width of base image in pixels. Set to **1040**.
-     - `height`: Height of base image. Set to the height that corresponds to a width of **1040** pixels.
-     */
-    public struct Size: Codable {
-        
-        public var width: Double
-        public var height: Double
-    }
 }
 
 // MARK: - Video
@@ -75,7 +63,7 @@ extension LineImagemapMessageObject {
         
         public var originalContentURL: String
         public var previewImageURL: String
-        public var area: LineImagemapMessageObjectArea
+        public var area: LineAreaObject
         public var externalLink: ExternalLink?
         
         enum CodingKeys: String, CodingKey {
@@ -131,7 +119,7 @@ extension LineImagemapMessageObject: Codable {
         self.type = try container.decode(LineMessageObjectType.self, forKey: .type)
         self.baseURL = try container.decode(String.self, forKey: .baseURL)
         self.altText = try container.decode(String.self, forKey: .altText)
-        self.baseSize = try container.decode(Size.self, forKey: .baseSize)
+        self.baseSize = try container.decode(LineSizeObject.self, forKey: .baseSize)
         self.video = try container.decodeIfPresent(Video.self, forKey: .video)
         
         var unkeyedContainer = try container.nestedUnkeyedContainer(forKey: .actions)

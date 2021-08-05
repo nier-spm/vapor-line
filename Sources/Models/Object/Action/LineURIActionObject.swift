@@ -33,7 +33,7 @@ public struct LineURIActionObject: LineActionObject {
 extension LineURIActionObject {
     
     public struct AltURI: Codable {
-        var desktop: String
+        public var desktop: String
     }
 }
 

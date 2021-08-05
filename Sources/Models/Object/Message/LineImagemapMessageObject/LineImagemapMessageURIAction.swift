@@ -15,7 +15,7 @@ public struct LineImagemapMessageURIAction: LineImagemapMessageAction {
     public var type: LineImagemapMessageActionType = .uri
     public var label: String?
     public var linkURI: String
-    public var area: LineImagemapMessageObjectArea
+    public var area: LineAreaObject
 }
 
 extension LineImagemapMessageURIAction: Codable {}
