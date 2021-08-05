@@ -1,5 +1,13 @@
 import Vapor
 
+/**
+ [Webhooks]: https://developers.line.biz/en/reference/messaging-api/#webhooks
+ 
+ When an event occurs, such as when a user adds your LINE Official Account as a friend or sends a message, the LINE Platform sends an HTTPS POST request to the webhook URL (bot server).
+ 
+ # Reference
+ [Webhooks | LINE Developers][Webhooks]
+ */
 public final class Webhook: NSObject {
     
     private let line: Line
