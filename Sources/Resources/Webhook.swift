@@ -12,11 +12,11 @@ public final class Webhook: NSObject {
 // MARK: - Line webhook api
 extension Webhook {
     
-    enum API: String {
+    public enum API: String {
         case endpoint
         case test
         
-        var url: URI {
+        public var url: URI {
             let baseURL: String = "https://api.line.me/v2/bot/channel/webhook/"
 
             return URI(string: baseURL + self.rawValue)
