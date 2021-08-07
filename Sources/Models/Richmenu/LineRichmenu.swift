@@ -1,10 +1,13 @@
-import Foundation
+import Vapor
 
 /**
  [CreateRichmeun]: https://developers.line.biz/en/reference/messaging-api/#create-rich-menu
  [GetRichmenu]: https://developers.line.biz/en/reference/messaging-api/#get-rich-menu
  [GetRichmenuList]: https://developers.line.biz/en/reference/messaging-api/#get-rich-menu-list
  [ActionObjects]: https://developers.line.biz/en/reference/messaging-api/#action-objects
+ 
+ # Reference
+ [Rich menu structure | LINE Developers](https://developers.line.biz/en/reference/messaging-api/#rich-menu-structure)
  
  Rich menus consist of either of these objects.
  
@@ -25,7 +28,7 @@ import Foundation
  - `areas`: Array of area objects which define the coordinates and size of tappable areas. See **LineRichmenuAreaObject**.
     - Max: 20 area objects
  */
-public struct LineRichmenuObject {
+public struct LineRichmenu {
     
     public var size: LineSizeObject
     public var selected: Bool
@@ -34,5 +37,5 @@ public struct LineRichmenuObject {
     public var areas: [LineRichmenuAreaObject]
 }
 
-// MARK: - Codable
-extension LineRichmenuObject: Codable {}
+// MARK: - Content
+extension LineRichmenu: Content {}

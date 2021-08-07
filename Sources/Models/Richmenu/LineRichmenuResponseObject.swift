@@ -1,4 +1,4 @@
-import Foundation
+import Vapor
 
 /**
  - `richMenuID`: ID of a rich menu.
@@ -14,15 +14,15 @@ import Foundation
 public struct LineRichmenuResponseObject {
     
     public var richMenuID: String
-    public var size: LineSizeObject
-    public var selected: Bool
-    public var name: String
-    public var chatBarText: String
-    public var areas: [LineAreaObject]
+    public var size: LineSizeObject?
+    public var selected: Bool?
+    public var name: String?
+    public var chatBarText: String?
+    public var areas: [LineRichmenuAreaObject]?
 }
 
-// MARK: - Codable
-extension LineRichmenuResponseObject: Codable {
+// MARK: - Content
+extension LineRichmenuResponseObject: Content {
     
     enum CodingKeys: String, CodingKey {
         case richMenuID = "richMenuId"

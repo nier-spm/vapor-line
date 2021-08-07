@@ -24,10 +24,10 @@ extension Webhook {
         case endpoint
         case test
         
-        public var url: URI {
+        public var url: String {
             let baseURL: String = "https://api.line.me/v2/bot/channel/webhook/"
 
-            return URI(string: baseURL + self.rawValue)
+            return baseURL + self.rawValue
         }
     }
 }
@@ -78,7 +78,7 @@ extension Webhook {
             - `false`: Webhook usage is disabled.
      */
     public func endpoint(_ request: Request) -> EventLoopFuture<LineWebhookEndpointResponse> {
-        return request.client.get(API.endpoint.url, headers: self.line.headers)
+        return request.client.get(URI(string: API.endpoint.url), headers: self.line.headers)
             .flatMapThrowing { res in
                 if res.status.code != 200 {
                     let error = try? res.content.decode(LineAPIErrorResponse.self)
@@ -109,7 +109,7 @@ extension Webhook {
         Returns a `400` HTTP status code if the webhook URL is invalid.
      */
     public func endpoint(_ request: Request, endpoint: URI) -> EventLoopFuture<HTTPStatus> {
-        return request.client.put(API.endpoint.url, headers: self.line.headers) { req in
+        return request.client.put(URI(string: API.endpoint.url), headers: self.line.headers) { req in
             let data: [String: String] = ["endpoint": endpoint.string]
             try req.content.encode(data)
         }.flatMapThrowing { res in
@@ -155,7 +155,7 @@ extension Webhook {
         - Returns a `404` HTTP status code if the webhook URL isn't set.
      */
     public func test(_ request: Request, endpoint: URI? = nil) -> EventLoopFuture<LineWebhookTestResponse> {
-        return request.client.post(API.test.url, headers: self.line.headers) { req in
+        return request.client.post(URI(string: API.test.url), headers: self.line.headers) { req in
             if let endpoint = endpoint {
                 let data: [String: String] = ["endpoint": endpoint.string]
                 try req.content.encode(data)
