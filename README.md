@@ -4,8 +4,8 @@ A Vapor extension package for [Line Messaging Api](https://developers.line.biz/e
 
 ## Features
 
-- [x] Verify webhook message
-- [x] Validation middleware
+- [x] [Verify webhook message](#webhook-verify)
+- [x] [Validation middleware](#line-middleware)
 
 ## Installation
 
