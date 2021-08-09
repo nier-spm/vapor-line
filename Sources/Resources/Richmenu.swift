@@ -83,32 +83,6 @@ extension Richmenu {
         }
     }
     
-    // MARK: get richmenu
-    /**
-     Gets a rich menu via a rich menu ID.
-     
-     # Reference
-     [Get rich menu | LINE Developers](https://developers.line.biz/en/reference/messaging-api/#get-rich-menu)
-     
-     - Parameters:
-         - request: Client request
-         - menuID: ID of richmenu
-     
-     - Returns:
-        Returns status code `200` and a rich menu response object.
-     */
-    public func menu(_ request: Request, menuID id: String) -> EventLoopFuture<LineRichmenuResponseObject> {
-        request.client.get(URI(string: API.richment(id).url), headers: self.line.headers).flatMapThrowing { res in
-            if res.status.code != 200 {
-                let error = try? res.content.decode(LineAPIErrorResponse.self)
-                
-                throw Abort(res.status, reason: error?.message)
-            }
-            
-            return try res.content.decode(LineRichmenuResponseObject.self)
-        }
-    }
-    
     // MARK: upload local richmenu image
     /**
      Uploads and attaches a local image to a rich menu.
@@ -286,6 +260,32 @@ extension Richmenu {
             let response = try res.content.decode([String: [LineRichmenuResponseObject]].self)
             
             return response.values.first ?? []
+        }
+    }
+    
+    // MARK: get richmenu
+    /**
+     Gets a rich menu via a rich menu ID.
+     
+     # Reference
+     [Get rich menu | LINE Developers](https://developers.line.biz/en/reference/messaging-api/#get-rich-menu)
+     
+     - Parameters:
+         - request: Client request
+         - menuID: ID of richmenu
+     
+     - Returns:
+        Returns status code `200` and a rich menu response object.
+     */
+    public func menu(_ request: Request, menuID id: String) -> EventLoopFuture<LineRichmenuResponseObject> {
+        request.client.get(URI(string: API.richment(id).url), headers: self.line.headers).flatMapThrowing { res in
+            if res.status.code != 200 {
+                let error = try? res.content.decode(LineAPIErrorResponse.self)
+                
+                throw Abort(res.status, reason: error?.message)
+            }
+            
+            return try res.content.decode(LineRichmenuResponseObject.self)
         }
     }
     
