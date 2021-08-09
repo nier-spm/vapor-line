@@ -6,7 +6,7 @@ A Vapor extension package for [Line Messaging Api](https://developers.line.biz/e
 
 - [x] [Verify webhook message](#webhook-verify)
 - [x] [Validation middleware](#line-middleware)
-- [x] Richmenu APIs
+- [x] [Richmenu APIs](https://github.com/nier-spm/vapor-line/blob/develop/Documents/Richmenu.md)
 
 ## Installation
 
