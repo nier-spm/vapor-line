@@ -12,15 +12,16 @@ If you want to know more how to use, create or more introduction about **Line Ri
 ## API
 
 - [Create rich menu](#create-rich-menu)
-- [Upload rich menu image](#upload-richm-menu-image)
-	- [from local directory](#upload-richm-menu-image-from-local-directory)
-	- [from public directory](#upload-richm-menu-image-from-public-directory)
+- [Upload rich menu image](#upload-rich-menu-image)
+	- [from local directory](#from-local-directory)
+	- [from public directory](#from-public-directory)
 - [Download rich menu image](#download-rich-menu-image)
-	- [save to local](#download-rich-menu-image-save-to-local)
+	- [save to local](#save-to-local)
 - [Get rich menu list](#get-rich-menu-list)
 - [Get rich menu](#get-rich-menu)
 - [Set default rich menu](#set-default-rich-menu)
 - [Get default rich menu ID](#get-default-rich-menu-id)
+- [Cancel default rich menu](#cancel-default-rich-menu)
 
 ### Create rich menu
 
