@@ -7,6 +7,7 @@ A Vapor extension package for [Line Messaging Api](https://developers.line.biz/e
 - [x] [Verify webhook message](#webhook-verify)
 - [x] [Validation middleware](#line-middleware)
 - [x] [Richmenu APIs](https://github.com/nier-spm/vapor-line/blob/develop/Documents/Richmenu.md)
+- [x] [Webhook Setting APIs](https://github.com/nier-spm/vapor-line/blob/develop/Documents/Webhook.md)
 
 ## Installation
 
@@ -72,11 +73,9 @@ let line: Line = Line()             // Line Service
 let request: Request = Request()    // Client Request
 
 guard let signature = request.headers["x-line-signature"].first,
-      let body = request.body.string else {
-          return
-      }
+      let body = request.body.string else { return }
       
-let result: Result<Bool, LineError> = line.webhookVerify(signature, body)
+let result: Result<Bool, LineError> = line.webhook.verify(signature, body)
 ```
 
 If webhook message come from Line, the `result` is `success`.
